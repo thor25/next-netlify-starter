@@ -11,6 +11,7 @@ const cors = initMiddleware(
   })
 )
 const url = process.env.URL_BASE+"tiempos/"
+console.log("URL:", url)
 export default async function handler(req, res) {
     var llegadas = []
     await cors(req,res)
@@ -44,7 +45,7 @@ export default async function handler(req, res) {
        console.error(e);
      });
     
-  res.status(200).json({valor : llegadas})
+  res.status(200).json({valor : llegadas, datoUrl:url})
   //  res.status(200).json({ datos: grupos })
   }
 
