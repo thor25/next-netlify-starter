@@ -24,7 +24,7 @@ export async function firebaseInit()
 {
   // console.log("🚀 ~ file: firebase.js ~ line 22 ~ firebase.apps.length", firebase.apps.length)
 
-if (firebase.apps === undefined) {
+if (firebase === undefined) {
   firebase.initializeApp(firebaseConfig);
 }
 
