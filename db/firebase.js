@@ -1,9 +1,7 @@
-import firebase from "firebase/app";
-
-import "firebase/analytics";
-import "firebase/auth";
-import "firebase/firestore";
-import "firebase/storage";
+// import {firebase} from "firebase/app";
+import { initializeApp, getApps } from "firebase/app"
+import { getFirestore } from "firebase/firestore"
+import { getAuth } from "firebase/auth"
 
 const firebaseConfig={
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -22,16 +20,19 @@ var storage ;
 
 export async function firebaseInit()
 {
-  // console.log("🚀 ~ file: firebase.js ~ line 22 ~ firebase.apps.length", firebase.apps.length)
+   console.log("🚀 ~ file: firebase.js ~ line 22 ~ firebase.apps.length", getApps().length)
 
-if (firebase === undefined) {
-  firebase.initializeApp(firebaseConfig);
+
+   const app = initializeApp(firebaseConfig)
+
+   firestore = getFirestore(app)
+   auth = getAuth(app)
+
+
+  
 }
 
-  auth = firebase.auth();
-  firestore = firebase.firestore();
-  storage = firebase.storage();
-}
+
 // export const performance = firebase.performance();
 
 // export let analytics;

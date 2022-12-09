@@ -1,4 +1,6 @@
 import { firestore,auth} from "./firebase.js";
+import {  signInWithEmailAndPassword } from "firebase/auth";
+import { collection, getDocs, doc, getDoc } from "firebase/firestore";
 
 export async function  signIn (emailAddress, password)   {
 console.log("🚀 ~ file: firestore.init.js ~ line 41 ~ password", password)
@@ -8,7 +10,7 @@ if (!emailAddress || !password) {
   reject(new Error("No e-mail address or password"));
   return;
 }
-var value = await   auth.signInWithEmailAndPassword(emailAddress, password)
+var value = await   signInWithEmailAndPassword(auth,emailAddress, password)
 const user = value.user;
 
 if (!user) {
@@ -25,17 +27,19 @@ if (!uid) {
   return;
 }
 
-const userDocumentReference = firestore.collection("users").doc(uid);
-const doc = await userDocumentReference.get();
-if (!doc.exists) 
+// const doc = await getDocs(collection(firestore,"users")).doc(uid);
+const docRef = doc(firestore, "users", uid);
+const docSnap = await getDoc(docRef);
+
+if (!docSnap.exists) 
   console.log('No such document!');
 else 
-   grupos =  doc.data().datos
+   grupos =  docSnap.data().datos
 console.log("🚀 ~ file: firestore.init.js ~ line 34 ~ signIn ~ grupos", grupos)
 
-const fitbitRef = firestore.collection('fitbit').doc('datos')
+const fitbitRef = doc(firestore, "fitbit", "datos");
 
-const docf = await fitbitRef.get();
+const docf = await getDoc(fitbitRef);
 var cadena  = ""
 if (!docf.exists) {
   console.log('No such document!');
