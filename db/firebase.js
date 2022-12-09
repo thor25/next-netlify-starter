@@ -22,9 +22,9 @@ var storage ;
 
 export async function firebaseInit()
 {
-  console.log("🚀 ~ file: firebase.js ~ line 22 ~ firebase.apps.length", firebase.apps.length)
+  // console.log("🚀 ~ file: firebase.js ~ line 22 ~ firebase.apps.length", firebase.apps.length)
 
-if (firebase.apps.length === 0) {
+if (firebase.apps === undefined) {
   firebase.initializeApp(firebaseConfig);
 }
 
