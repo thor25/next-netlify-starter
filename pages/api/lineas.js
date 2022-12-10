@@ -15,25 +15,24 @@ console.log("🚀 ~ file: lineas.js ~ line 2 ~ urlBase", urlBase)
 const headers = {
   
     //headers.append('Content-Type', 'text/json');
-    'Authorization': process.env.AUTHENTICATION,
-    "content-type": "application/json",
-    "deviceid": "0b525b54-dcc5-11ea-87d0-0242ac130003",
-    "cache-control": "no-cache"
+    "accept": "application/json, text/javascript, */*; q=0.01",
     }
   
 export default async function handler(req, res) {
     await cors(req,res)
     var valor = []
-    await fetch( urlBase+"lineas/todas", {
+    await fetch( urlBase+"lineas/10-12-2022T09:19:00", {
       method: 'get',
       headers: headers,
       
     })      
       .then(response => response.json())
       .then(data => {
+        console.log(data)  
        if (data!=null)
        {
-        data.forEach(dato=>{
+        data.result.lineasDisponibles.forEach(dato=>{
+            console.log(dato)
             valor.push({'key':dato.linea,'nombre':dato.labelLinea + ".-"  + dato.descripcion.texto})
           })     
           
