@@ -13,10 +13,7 @@ const urlBase = process.env.URL_BASE
 const headers = {
   
     //headers.append('Content-Type', 'text/json');
-    'Authorization': process.env.AUTHENTICATION,
-    "content-type": "application/json",
-    "deviceid": "0b525b54-dcc5-11ea-87d0-0242ac130003",
-    "cache-control": "no-cache"
+    "accept": "application/json, text/javascript, */*; q=0.01",
     }
  
 export default async function handler(req, res) {
@@ -24,12 +21,12 @@ export default async function handler(req, res) {
     console.log(req.query)
     var linea = req.query.linea
     var sentido = 1
-    var url = `${urlBase}nodosLinea/${linea}?sentido=${sentido}`
+    var url = `${urlBase}nodosLinea/${linea}/${sentido}/10-12-2022T09:39:00`
     var valor  = {"linea":linea,"sentido":[]};
 
     console.log(url)
     await cors(req,res)
-    await fetch( `${urlBase}nodosLinea/${linea}?sentido=${sentido}`, {
+    await fetch( url, {
       method: 'get',
       headers: headers,
     })      
@@ -39,7 +36,7 @@ export default async function handler(req, res) {
        {
          valor.sentido.push({"paradas":[]})
         //console.log(data)
-         data.forEach(dato=>{
+         data.result.forEach(dato=>{
            valor.sentido[0].paradas.push({'codigo':dato.codigo,'descripcion':dato.descripcion.texto})
          })
           
